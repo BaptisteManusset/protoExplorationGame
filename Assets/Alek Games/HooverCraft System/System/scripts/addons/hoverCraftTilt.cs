@@ -7,9 +7,17 @@ namespace AlekGames.HoverCraftSystem.Systems.Addons
 {
     public class hoverCraftTilt : MonoBehaviour
     {
-        private enum tiltUpT { groundNormal, worldUp }
+        private enum tiltUpT
+        {
+            groundNormal,
+            worldUp
+        }
 
-        private enum inputT { thrust, input};
+        private enum inputT
+        {
+            thrust,
+            input
+        };
 
         [SerializeField, Tooltip("specifies what will be counted as Up in tilting")]
         private tiltUpT tiltUpType;
@@ -17,7 +25,8 @@ namespace AlekGames.HoverCraftSystem.Systems.Addons
         [SerializeField, Tooltip("if the script should get the player input, or the thrust of hovercraft to tilt")]
         private inputT inputType;
 
-        [SerializeField, Tooltip("the model itself, not the hole hovercraft, make sure that the hoverPoints are not children of it")]
+        [SerializeField,
+         Tooltip("the model itself, not the hole hovercraft, make sure that the hoverPoints are not children of it")]
         private Transform model;
 
         [SerializeField, Tooltip("the hoverCraft component of this hovercraft")]
@@ -30,9 +39,12 @@ namespace AlekGames.HoverCraftSystem.Systems.Addons
         private float tiltSpeed = 8;
 
 
-        void Update()
+        private void Update()
         {
-            Vector2 input = inputType == inputT.thrust? hoverCraftScript.getThrustDir(): hoverCraftScript.getCorrectedInput();
+            if (!CameraTargetSwitcher.Instance.IsGlide) return;
+            Vector2 input = inputType == inputT.thrust
+                ? hoverCraftScript.getThrustDir()
+                : hoverCraftScript.getCorrectedInput();
 
             //Debug.Log(input);
 

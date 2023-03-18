@@ -35,6 +35,8 @@ MonoBehaviour:
     - Cinemachine
     - Den.Tools
     - MapMagic
+    - NaughtyAttributes.Core
+    - NaughtyAttributes.Test
     - XNode
     showAdvancedSettings: 1
   addMgrToSceneAutomatically: 0

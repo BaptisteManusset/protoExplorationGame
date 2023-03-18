@@ -14,15 +14,13 @@ namespace StarterAssets
 #endif
     public class ThirdPersonController : MonoBehaviour
     {
-        [Header("Player")]
-        [Tooltip("Move speed of the character in m/s")]
+        [Header("Player")] [Tooltip("Move speed of the character in m/s")]
         public float MoveSpeed = 2.0f;
 
         [Tooltip("Sprint speed of the character in m/s")]
         public float SprintSpeed = 5.335f;
 
-        [Tooltip("How fast the character turns to face movement direction")]
-        [Range(0.0f, 0.3f)]
+        [Tooltip("How fast the character turns to face movement direction")] [Range(0.0f, 0.3f)]
         public float RotationSmoothTime = 0.12f;
 
         [Tooltip("Acceleration and deceleration")]
@@ -32,8 +30,7 @@ namespace StarterAssets
         public AudioClip[] FootstepAudioClips;
         [Range(0, 1)] public float FootstepAudioVolume = 0.5f;
 
-        [Space(10)]
-        [Tooltip("The height the player can jump")]
+        [Space(10)] [Tooltip("The height the player can jump")]
         public float JumpHeight = 1.2f;
 
         [Tooltip("The character uses its own gravity value. The engine default is -9.81f")]
@@ -50,8 +47,7 @@ namespace StarterAssets
         [Tooltip("If the character is grounded or not. Not part of the CharacterController built in grounded check")]
         public bool Grounded = true;
 
-        [Tooltip("Useful for rough ground")]
-        public float GroundedOffset = -0.14f;
+        [Tooltip("Useful for rough ground")] public float GroundedOffset = -0.14f;
 
         [Tooltip("The radius of the grounded check. Should match the radius of the CharacterController")]
         public float GroundedRadius = 0.28f;
@@ -138,7 +134,7 @@ namespace StarterAssets
             TryGetComponent(out _animator);
             // _hasAnimator = TryGetComponent(out _animator);
             _controller = GetComponent<CharacterController>();
-            _input = GetComponent<StarterAssetsInputs>();
+            _input = FindObjectOfType<StarterAssetsInputs>(true);
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
             _playerInput = GetComponent<PlayerInput>();
 #else
@@ -155,6 +151,8 @@ namespace StarterAssets
         private void Update()
         {
             // _hasAnimator = TryGetComponent(out _animator);
+
+            if (!CameraTargetSwitcher.Instance.IsWalking) return;
 
             JumpAndGravity();
             GroundedCheck();
@@ -186,12 +184,13 @@ namespace StarterAssets
             // update animator if using character
             // if (_hasAnimator)
             // {
-                _animator.SetBool(_animIDGrounded, Grounded);
+            _animator.SetBool(_animIDGrounded, Grounded);
             // }
         }
 
         private void CameraRotation()
         {
+            return;     
             // if there is an input and camera position is not fixed
             if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition)
             {
@@ -274,8 +273,8 @@ namespace StarterAssets
             // update animator if using character
             // if (_hasAnimator)
             // {
-                _animator.SetFloat(_animIDSpeed, _animationBlend);
-                _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
+            _animator.SetFloat(_animIDSpeed, _animationBlend);
+            _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
             // }
         }
 
@@ -289,8 +288,8 @@ namespace StarterAssets
                 // update animator if using character
                 // if (_hasAnimator)
                 // {
-                    _animator.SetBool(_animIDJump, false);
-                    _animator.SetBool(_animIDFreeFall, false);
+                _animator.SetBool(_animIDJump, false);
+                _animator.SetBool(_animIDFreeFall, false);
                 // }
 
                 // stop our velocity dropping infinitely when grounded
@@ -308,7 +307,7 @@ namespace StarterAssets
                     // update animator if using character
                     // if (_hasAnimator)
                     // {
-                        _animator.SetBool(_animIDJump, true);
+                    _animator.SetBool(_animIDJump, true);
                     // }
                 }
 
@@ -333,7 +332,7 @@ namespace StarterAssets
                     // update animator if using character
                     // if (_hasAnimator)
                     // {
-                        _animator.SetBool(_animIDFreeFall, true);
+                    _animator.SetBool(_animIDFreeFall, true);
                     // }
                 }
 
@@ -376,7 +375,8 @@ namespace StarterAssets
                 if (FootstepAudioClips.Length > 0)
                 {
                     int index = Random.Range(0, FootstepAudioClips.Length);
-                    AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
+                    AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center),
+                        FootstepAudioVolume);
                 }
             }
         }
@@ -385,7 +385,8 @@ namespace StarterAssets
         {
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
-                AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
+                AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center),
+                    FootstepAudioVolume);
             }
         }
     }
