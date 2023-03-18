@@ -869,7 +869,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1684685037}
-  - component: {fileID: 1684685036}
   - component: {fileID: 1684685035}
   - component: {fileID: 1684685034}
   - component: {fileID: 1684685039}
@@ -914,18 +913,6 @@ MonoBehaviour:
   gliderTarget: {fileID: 498852489}
   gliderLookAt: {fileID: 0}
   m_playerState: 0
---- !u!114 &1684685036
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1684685033}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0def1bce84814528b102fccf63d11391, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1684685037
 Transform:
   m_ObjectHideFlags: 0
@@ -1123,6 +1110,5 @@ PrefabInstance:
       value: KeyboardMouse
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 135756642000475821, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
     - {fileID: 4416926081852918493, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}

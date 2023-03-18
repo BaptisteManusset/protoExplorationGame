@@ -30,7 +30,7 @@ public class CameraTargetSwitcher : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        m_virtualCamera = GetComponent<CinemachineVirtualCamera>();
+        m_virtualCamera = FindObjectOfType<CinemachineVirtualCamera>(true);
     }
 
     [Button("change target")]
